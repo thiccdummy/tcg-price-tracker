@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Card Price Trends</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+ body{font-family:sans-serif;background:#14171c;color:#e6e6e6;margin:0;padding:24px}
+ h1{font-size:1.3rem;margin:0 0 4px}.sub{color:#8a919c;font-size:.85rem;margin-bottom:20px}
+ .cards{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+ .card{background:#1d2129;border-radius:10px;padding:12px 18px;min-width:170px}
+ .card .nm{font-size:.8rem;color:#8a919c}.card .pr{font-size:1.35rem;font-weight:700}
+ .up{color:#4ade80}.dn{color:#f87171}
+ .panel{background:#1d2129;border-radius:10px;padding:16px}
+ #toggles{margin:10px 0;display:flex;gap:8px;flex-wrap:wrap}
+ #toggles button{background:#2a2f3a;color:#ccc;border:none;border-radius:6px;
+   padding:5px 10px;cursor:pointer;font-size:.78rem}
+ #toggles button.on{background:hsl(210,60%,45%);color:#fff}
+</style></head><body>
+<h1>📈 Card Price Trends</h1>
+<div class="sub">Market price (USD) · source: TCGPlayer via tcgcsv.com · generated 2026-08-23 14:10</div>
+<div class="cards" id="statcards"></div>
+<div class="panel">
+ <canvas id="chart" height="110"></canvas>
+ <div id="toggles"></div>
+</div>
+<script>
+const DATES = ["2026-08-23"];
+const DATASETS = [{"label": "MonkeyDLuffy 003 (003)", "data": [9.29], "borderColor": "hsl(0,70%,50%)", "backgroundColor": "hsl(0,70%,50%)", "tension": 0.25, "pointRadius": 2.5}, {"label": "Trafalgar Law 002 (002)", "data": [2.31], "borderColor": "hsl(137,70%,50%)", "backgroundColor": "hsl(137,70%,50%)", "tension": 0.25, "pointRadius": 2.5}];
+const CARDS = [{"name": "MonkeyDLuffy 003 (003)", "latest": 9.29, "first": 9.29, "change_pct": 0.0, "last_updated": "2026-08-23"}, {"name": "Trafalgar Law 002 (002)", "latest": 2.31, "first": 2.31, "change_pct": 0.0, "last_updated": "2026-08-23"}];
+const stat = document.getElementById('statcards');
+CARDS.forEach((c,i)=>{
+  const cls = c.change_pct>0?'up':(c.change_pct<0?'dn':'');
+  const arrow = c.change_pct>0?'▲':(c.change_pct<0?'▼':'·');
+  stat.insertAdjacentHTML('beforeend',`<div class="card"><div class="nm">${c.name}</div>
+   <div class="pr">$${c.latest.toFixed(2)}</div>
+   <div class="${cls}">${arrow} ${Math.abs(c.change_pct)}% since ${c.first.toFixed(2)} · thru ${c.last_updated}</div></div>`);
+});
+const ctx=document.getElementById('chart').getContext('2d');
+const colors=DATASETS.map(d=>d.borderColor);
+const chart=new Chart(ctx,{type:'line',
+ data:{labels:DATES,datasets:DATASETS},
+ options:{responsive:true,
+  scales:{y:{ticks:{callback:v=>'$'+v},grid:{color:'#262b34'}},
+          x:{grid:{display:false}}},
+  plugins:{legend:{display:false},
+   tooltip:{callbacks:{label:c=>`${c.dataset.label}: $${c.parsed.y?.toFixed(2)}`}}}}});
+const tg=document.getElementById('toggles');
+DATASETS.forEach((d,i)=>{
+  const b=document.createElement('button');b.textContent=d.label;b.classList.add('on');
+  b.onclick=()=>{const meta=chart.getDatasetMeta(i);meta.hidden=!meta.hidden;
+   b.classList.toggle('on');chart.update();};
+  tg.appendChild(b);
+});
+if(!window.Chart){document.body.innerHTML='<p>Needs internet to load chart library.</p>';}
+</script></body></html>

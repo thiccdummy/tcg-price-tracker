@@ -15,7 +15,8 @@ with open(CSV_PATH) as f:
 
 series = {}
 for r in rows:
-    key = f"{r['name']} ({r['number']})"
+    foil_tag = " ✨Foil" if r["sub_type"] == "Foil" else ""
+    key = f"{r['name']} ({r['number']}){foil_tag}"
     ts = r["timestamp_utc"][:10]
     mkt = r["market"]
     if not mkt:

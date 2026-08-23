@@ -89,13 +89,23 @@ def resolve(entry, cat_map, groups_cache):
     products = http_json(f"{BASE}/{cat_id}/{group['groupId']}/products")
 
     want_name, want_num = norm(entry["name"]), norm(str(entry["number"]))
-    hits = []
-    for p in products:
-        cn = norm(p["cleanName"])
-        if want_name in cn:
-            num = re.search(r"(\d+[a-z]*)\s*$", p.get("cleanName", "").strip().lower())
-            if num and want_num and num.group(1).startswith(want_num):
-                hits.append(p)
+
+    def card_number(p):
+        m = re.search(r"(\d+[a-z]*)\s*$", p.get("cleanName", "").strip().lower())
+        if m:
+            return m.group(1)
+        for ext in p.get("extendedData") or []:
+            if ext.get("name") == "Number":
+                return str(ext.get("value", "")).lower()
+        return ""
+
+    hits = [p for p in products
+            if want_name in norm(p["cleanName"])
+            and (not want_num or card_number(p).startswith(want_num))]
+    if len(hits) > 1:
+        # base printing usually has the shortest clean name (vs "...Serial Numbered" etc.)
+        best = min(len(norm(p["cleanName"])) for p in hits)
+        hits = [p for p in hits if len(norm(p["cleanName"])) == best]
     if len(hits) != 1:
         print(f"  !! '{entry['name']}' #{entry['number']}: {len(hits)} matches, skipping "
               f"({[h['cleanName'] for h in hits][:3]})")
@@ -112,7 +122,7 @@ def fetch_prices(groups_used):
     prices = {}
     for cat, gid in groups_used:
         for pr in http_json(f"{BASE}/{cat}/{gid}/prices"):
-            prices[pr["productId"]] = pr
+            prices.setdefault(pr["productId"], {})[pr["subTypeName"]] = pr
     return prices
 
 
@@ -128,6 +138,7 @@ def main():
         r = resolve(entry, cat_map, groups_cache)
         if r:
             r.update({k: entry.get(k, "") for k in ("game", "set", "name", "number")})
+            r["foil"] = bool(entry.get("foil"))
             used_groups.add((r["categoryId"], r["groupId"]))
             resolved.append(r)
             print(f"  ok -> {r['cleanName']} (id {r['productId']})")
@@ -146,7 +157,8 @@ def main():
 
     new_rows, changed = [], 0
     for r in resolved:
-        p = price_data.get(r["productId"], {})
+        want_sub = "Foil" if r.get("foil") else "Normal"
+        p = price_data.get(r["productId"], {}).get(want_sub, {})
         vals = [p.get(k) for k in ("lowPrice", "midPrice", "marketPrice", "highPrice", "directLowPrice")]
         prev = last_row.get(str(r["productId"]))
         same_day = prev and prev["timestamp_utc"][:10] == now[:10]
@@ -156,7 +168,7 @@ def main():
             continue
         row = {"timestamp_utc": now, "game": r["game"], "set": r["set"],
                "name": r["cleanName"], "number": r["number"],
-               "product_id": r["productId"], "sub_type": p.get("subTypeName", "")}
+               "product_id": r["productId"], "sub_type": want_sub}
         row.update(dict(zip(("low", "mid", "market", "high", "direct_low"),
                             (v if v is not None else "" for v in vals))))
         new_rows.append(row)

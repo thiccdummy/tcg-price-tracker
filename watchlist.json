@@ -14,6 +14,14 @@
       "name": "Trafalgar Law",
       "number": "002",
       "note": "example entry"
+    },
+    {
+      "game": "mtg",
+      "set": "Universes Beyond: The Lord of the Rings",
+      "name": "One Ring Borderless Poster",
+      "number": "748",
+      "foil": true,
+      "note": "Near Mint foil market price"
     }
   ]
 }

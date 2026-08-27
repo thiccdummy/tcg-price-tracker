@@ -17,16 +17,16 @@
  #toggles button.on{background:hsl(210,60%,45%);color:#fff}
 </style></head><body>
 <h1>📈 Card Price Trends</h1>
-<div class="sub">Market price (USD) · source: TCGPlayer via tcgcsv.com · generated 2026-08-26 14:44</div>
+<div class="sub">Market price (USD) · source: TCGPlayer via tcgcsv.com · generated 2026-08-27 12:06</div>
 <div class="cards" id="statcards"></div>
 <div class="panel">
  <canvas id="chart" height="110"></canvas>
  <div id="toggles"></div>
 </div>
 <script>
-const DATES = ["2026-08-23", "2026-08-24", "2026-08-25", "2026-08-26"];
-const DATASETS = [{"label": "MonkeyDLuffy 003 (003)", "data": [9.29, 9.29, 9.0, 9.0], "borderColor": "hsl(0,70%,50%)", "backgroundColor": "hsl(0,70%,50%)", "tension": 0.25, "pointRadius": 2.5}, {"label": "The One Ring Borderless Poster (748) \u2728Foil", "data": [1629.39, 1629.39, 1629.39, 1629.39], "borderColor": "hsl(137,70%,50%)", "backgroundColor": "hsl(137,70%,50%)", "tension": 0.25, "pointRadius": 2.5}, {"label": "Trafalgar Law 002 (002)", "data": [2.31, 2.31, 2.31, 2.36], "borderColor": "hsl(274,70%,50%)", "backgroundColor": "hsl(274,70%,50%)", "tension": 0.25, "pointRadius": 2.5}];
-const CARDS = [{"name": "MonkeyDLuffy 003 (003)", "latest": 9.0, "first": 9.29, "change_pct": -3.1, "last_updated": "2026-08-26"}, {"name": "The One Ring Borderless Poster (748) \u2728Foil", "latest": 1629.39, "first": 1629.39, "change_pct": 0.0, "last_updated": "2026-08-26"}, {"name": "Trafalgar Law 002 (002)", "latest": 2.36, "first": 2.31, "change_pct": 2.2, "last_updated": "2026-08-26"}];
+const DATES = ["2026-08-23", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27"];
+const DATASETS = [{"label": "MonkeyDLuffy 003 (003)", "data": [9.29, 9.29, 9.0, 9.0, 8.31], "borderColor": "hsl(0,70%,50%)", "backgroundColor": "hsl(0,70%,50%)", "tension": 0.25, "pointRadius": 2.5}, {"label": "The One Ring Borderless Poster (748) \u2728Foil", "data": [1629.39, 1629.39, 1629.39, 1629.39, 1629.39], "borderColor": "hsl(137,70%,50%)", "backgroundColor": "hsl(137,70%,50%)", "tension": 0.25, "pointRadius": 2.5}, {"label": "Trafalgar Law 002 (002)", "data": [2.31, 2.31, 2.31, 2.36, 2.36], "borderColor": "hsl(274,70%,50%)", "backgroundColor": "hsl(274,70%,50%)", "tension": 0.25, "pointRadius": 2.5}];
+const CARDS = [{"name": "MonkeyDLuffy 003 (003)", "latest": 8.31, "first": 9.29, "change_pct": -10.5, "last_updated": "2026-08-27"}, {"name": "The One Ring Borderless Poster (748) \u2728Foil", "latest": 1629.39, "first": 1629.39, "change_pct": 0.0, "last_updated": "2026-08-27"}, {"name": "Trafalgar Law 002 (002)", "latest": 2.36, "first": 2.31, "change_pct": 2.2, "last_updated": "2026-08-27"}];
 const stat = document.getElementById('statcards');
 CARDS.forEach((c,i)=>{
   const cls = c.change_pct>0?'up':(c.change_pct<0?'dn':'');

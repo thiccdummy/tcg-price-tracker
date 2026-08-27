@@ -2,11 +2,11 @@
   "_comment": "Edit this file to track any card on TCGPlayer. Fields: game (see games list at tcgcsv.com/tcgplayer/categories), set = exact or partial set name, name = partial card name, number = card number token to disambiguate. Commit changes and the tracker picks them up on the next run.",
   "cards": [
     {
-      "game": "one-piece",
-      "set": "Romance Dawn",
-      "name": "MonkeyDLuffy",
-      "number": "003",
-      "note": "OP01-003 parallel - example entry"
+      "game": "mtg",
+      "set": "Hobbit",
+      "name": "The One Ring",
+      "number": "",
+      "note": "Surge"
     },
     {
       "game": "one-piece",

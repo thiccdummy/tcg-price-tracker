@@ -17,16 +17,16 @@
  #toggles button.on{background:hsl(210,60%,45%);color:#fff}
 </style></head><body>
 <h1>📈 Card Price Trends</h1>
-<div class="sub">Market price (USD) · source: TCGPlayer via tcgcsv.com · generated 2026-08-27 22:55</div>
+<div class="sub">Market price (USD) · source: TCGPlayer via tcgcsv.com · generated 2026-08-28 22:19</div>
 <div class="cards" id="statcards"></div>
 <div class="panel">
  <canvas id="chart" height="110"></canvas>
  <div id="toggles"></div>
 </div>
 <script>
-const DATES = ["2026-08-23", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27"];
-const DATASETS = [{"label": "The One Ring Borderless Poster (748) \u2728Foil", "data": [1629.39, 1629.39, 1629.39, 1629.39, 1629.39], "borderColor": "hsl(0,70%,50%)", "backgroundColor": "hsl(0,70%,50%)", "tension": 0.25, "pointRadius": 2.5}];
-const CARDS = [{"name": "The One Ring Borderless Poster (748) \u2728Foil", "latest": 1629.39, "first": 1629.39, "change_pct": 0.0, "last_updated": "2026-08-27"}];
+const DATES = ["2026-08-23", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28"];
+const DATASETS = [{"label": "The One Ring Borderless Poster (748) \u2728Foil", "data": [1629.39, 1629.39, 1629.39, 1629.39, 1629.39, 1629.39], "borderColor": "hsl(0,70%,50%)", "backgroundColor": "hsl(0,70%,50%)", "tension": 0.25, "pointRadius": 2.5}];
+const CARDS = [{"name": "The One Ring Borderless Poster (748) \u2728Foil", "latest": 1629.39, "first": 1629.39, "change_pct": 0.0, "last_updated": "2026-08-28"}];
 const stat = document.getElementById('statcards');
 CARDS.forEach((c,i)=>{
   const cls = c.change_pct>0?'up':(c.change_pct<0?'dn':'');

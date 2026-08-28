@@ -1,17 +1,5 @@
 {
-  "onepiece|romancedawn|monkeydluffy|003": {
-    "productId": 454515,
-    "groupId": 3188,
-    "categoryId": 68,
-    "cleanName": "MonkeyDLuffy 003"
-  },
-  "onepiece|romancedawn|trafalgarlaw|002": {
-    "productId": 453505,
-    "groupId": 3188,
-    "categoryId": 68,
-    "cleanName": "Trafalgar Law 002"
-  },
-  "mtg|universesbeyondthelordoftherings|oneringborderlessposter|748": {
+universesbeyondthelordoftherings|oneringborderlessposter|748": {
     "productId": 517451,
     "groupId": 23019,
     "categoryId": 1,

@@ -1,7 +1,7 @@
 # Price Report
 
-_Last run: 2026-10-13T20:06:19Z UTC · source: TCGPlayer via tcgcsv.com_
+_Last run: 2026-10-14T06:51:46Z UTC · source: TCGPlayer via tcgcsv.com_
 
 | Card | Market | Prev | Change | Since start | Low–High |
 |---|---|---|---|---|---|
-| [The One Ring Borderless Poster](https://www.tcgplayer.com/product/517451) `748` | $1787.66 | 1787.66 ➖+0.0% | $1787.66 |  |
+| [The One Ring Borderless Poster](https://www.tcgplayer.com/product/517451) `748` | $1787.66 | 1787.66 ➖+0.0% | $1787.66 | $2214.00 – $9999.00 |

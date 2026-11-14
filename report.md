@@ -1,6 +1,6 @@
 # Price Report
 
-_Last run: 2026-11-13T20:46:30Z UTC · source: TCGPlayer via tcgcsv.com_
+_Last run: 2026-11-14T08:15:20Z UTC · source: TCGPlayer via tcgcsv.com_
 
 | Card | Market | Prev | Change | Since start | Low–High |
 |---|---|---|---|---|---|
